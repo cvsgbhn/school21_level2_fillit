@@ -1,5 +1,6 @@
 # include "libft/libft.h"
 # include "libft/get_next_line.h"
+# include "fillit.h"
 
 int     check_tetrimino_line(char *line, int decounter)
 {
@@ -10,7 +11,8 @@ int     check_tetrimino_line(char *line, int decounter)
     length = ft_strlen(line);
     // check length (4 + '\n')
     // check if there are only '*' and '#'
-    if (decounter == 1 && length == 1 && line == "\n")
+    printf("%s", line);
+    if (decounter == 1 && length == 1 && ft_strncmp(line, "\n") == 1)
         return (0);
     // 0 - it's pause line, ok, just skip it
     if (length != 4)
@@ -21,7 +23,7 @@ int     check_tetrimino_line(char *line, int decounter)
         if (line[counter] != '*' && line[counter] != '#')
             return (-1);
     }
-    return (1)
+    return (1);
 }
 
 // TODO: add to libft
@@ -29,13 +31,15 @@ int     count_symbol(char *line, char symbol)
 {
 // count symbol appearance in line
     int     counter;
+    int 	index;
 
     counter = 0;
-    while (line)
+    index = 0;
+    while (line[index])
     {
-        if (line == symbol)
+        if (line[index] == symbol)
             counter++;
-        line++;
+        index++;
     }
     return (counter);
 }
@@ -47,23 +51,23 @@ t_list  *read_single_tetrimino(int fd)
     char    *temp_line;
     char    *tetrimino_line;
     int     decounter;
+    int 	hash_counter;
 
     decounter = 5;
+    hash_counter = 0;
     temp_line = NULL;
     tetrimino_block = NULL;
-    while (decounter > 0)
+    while (decounter > 0 && get_next_line(fd, &temp_line))
     {
-        // TODO: add check on gnl
-        get_next_line(fd, temp_line);
-        if (check_tetrimino_line(temp_line, decounter) == -1)
-            return (NULL);
-        if (check_tetrimino_line(temp_line, decounter) == 0)
-            break ;
-        tetrimino_line = ft_strjoin(tetrimino_line, temp_line);
-        free(temp_line);
-        decounter--;
+    	if (check_tetrimino_line(temp_line, decounter) == -1)
+    		return (NULL);
+    	if (check_tetrimino_line(temp_line, decounter) == 0)
+			break;
+		tetrimino_line = ft_strjoin(tetrimino_line, temp_line);
+		free(temp_line);
+		decounter--;
     }
-
+	hash_counter = hash_counter + count_symbol(tetrimino_line, '#');
     // set a loop, sum the '#' for every 4 valid lines
     // when 4 in a row are valid - create t_list element and copy from line to t_list->content
     // free line and set hash-counter = 0
@@ -71,17 +75,3 @@ t_list  *read_single_tetrimino(int fd)
 }
 
 // TODO: create func that apply exact letter to exact number of tetrimino
-
-int     main(int argc, char **argv)
-{
-    int     count;
-
-
-    fd = open(argv[1], O_RDONLY);
-    while (get_tetrominos(fd))
-    {
-
-    }
-
-    return (1);
-}
