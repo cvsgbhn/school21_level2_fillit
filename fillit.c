@@ -45,19 +45,21 @@ int     count_symbol(char *line, char symbol)
 }
 
 //read given file, creating new list element for a single tetromino
-t_list  *read_single_tetrimino(int fd)
+t_list  *read_single_tetrimino(int fd, t_list **input)
 {
-    t_list  *tetrimino_block;
+    //t_list  *tetrimino_block;
     char    *temp_line;
     char    *tetrimino_line;
     int     decounter;
     int 	hash_counter;
+    int a;
+    t_list  tetrimino_block;
 
     decounter = 5;
     hash_counter = 0;
     temp_line = NULL;
     tetrimino_block = NULL;
-    while (decounter > 0 && get_next_line(fd, &temp_line))
+    while (decounter > 0 && (a = get_next_line(fd, &temp_line)) > 0)
     {
     	if (check_tetrimino_line(temp_line, decounter) == -1)
     		return (NULL);
@@ -67,11 +69,27 @@ t_list  *read_single_tetrimino(int fd)
 		free(temp_line);
 		decounter--;
     }
-	hash_counter = hash_counter + count_symbol(tetrimino_line, '#');
+	  hash_counter = hash_counter + count_symbol(tetrimino_line, '#');
+    if (hash_counter != 4)
+      return (NULL);
+    if (a == 0)
+      return(ft_lstnew);
     // set a loop, sum the '#' for every 4 valid lines
     // when 4 in a row are valid - create t_list element and copy from line to t_list->content
     // free line and set hash-counter = 0
     return (tetrimino_block);
 }
 
+t_list *get_tetrominos(int fd)
+{
+  t_list  *return_list;
+  t_list  *temp_list;
+
+  *return_list = ft_lstnew("\0", fd);
+  temp_list = *return_list;
+  return_list = read_single_tetrimino(fd, return_list);
+
+  //while (return_list = read_single_tetrimino(fd, &return_list))
+  return (return_list);
+}
 // TODO: create func that apply exact letter to exact number of tetrimino
