@@ -1,31 +1,36 @@
 # include "fillit.h"
 
-void print_linked_list(t_list the_list)
-{
-	while (the_list->next)
-	{
-		ft_putstr(the_list->content);
-		the_list = the_list->next;
+void print_linked_list(t_list *head) {
+	t_list *current_node;
+
+	current_node = head;
+	while ( current_node != NULL) {
+		printf("%s ", current_node->content);
+		current_node = current_node->next;
 	}
-	ft_putstr(the_list->content);
-	ft_putchar('\n');
 }
 
 int     main(int argc, char **argv)
 {
-	int		count;
-	char	*result;
 	t_list *input_data;
+	int fd;
 
+	if (argc < 2)
+		return (-1);
 	fd = open(argv[1], O_RDONLY);
-	if(!(get_tetriminos(input_data))
+	printf ("%d", fd);
+	input_data = NULL;
+	printf ("%s", "ok, i am here - 0");
+	get_tetriminos(fd, input_data);
+	/*if(!(get_tetriminos(input_data)))
 		return (-1);
 	// solve_task - solves tetromino puzzle
-	if (solve_task(input_data, result))
+	 if (solve_task(input_data, result))
 	{
 			//solution stuff
-	}
-	print_linked_list(&input_data);
+	} */
+	print_linked_list(input_data);
+	printf ("%s", "ok, i am here");
 	// TODO: add print list function
 	return (1);
 
