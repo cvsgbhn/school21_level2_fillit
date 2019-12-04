@@ -18,7 +18,7 @@ int     main(int argc, char **argv)
 	t_list *input_data;
 
 	fd = open(argv[1], O_RDONLY);
-	if(!(input_data = get_tetriminos(fd, argv))
+	if(!(get_tetriminos(input_data))
 		return (-1);
 	// solve_task - solves tetromino puzzle
 	if (solve_task(input_data, result))
