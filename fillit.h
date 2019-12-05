@@ -12,5 +12,5 @@ t_list	*get_tetriminos(int fd);*/
 // 2. just read and save to t_list->content one tetromino
 // 3. apply checks one by one
 
-t_list	*get_tetriminos(int fd, t_list *input);
+t_list	*get_tetriminos(int fd, t_list **input);
 #endif

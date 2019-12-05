@@ -18,10 +18,11 @@ int     main(int argc, char **argv)
 	if (argc < 2)
 		return (-1);
 	fd = open(argv[1], O_RDONLY);
-	printf ("%d", fd);
-	input_data = NULL;
-	printf ("%s", "ok, i am here - 0");
-	get_tetriminos(fd, input_data);
+	printf ("%d\n", fd);
+	input_data = ft_lstnew("whatever message", 0);
+	print_linked_list(input_data);
+	printf ("%s\n", "ok, i am here - 0");
+	input_data = get_tetriminos(fd, &input_data);
 	/*if(!(get_tetriminos(input_data)))
 		return (-1);
 	// solve_task - solves tetromino puzzle
@@ -30,7 +31,7 @@ int     main(int argc, char **argv)
 			//solution stuff
 	} */
 	print_linked_list(input_data);
-	printf ("%s", "ok, i am here");
+	printf ("%s\n", "ok, i am here");
 	// TODO: add print list function
 	return (1);
 
