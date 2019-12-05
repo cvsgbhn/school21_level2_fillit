@@ -2,36 +2,42 @@
 # include "libft/get_next_line.h"
 # include "fillit.h"
 
-t_list	*get_tetriminos(int fd, t_list **input)
+t_list	get_one_tetrimino(t_list *new_element, int fd)
 {
-	printf("%s\n", "inside get_tetriminos - 0");
-	t_list	*tmp_list;
-	char 	*tmp_str;
-	char	*another_str;
-	int		decounter;
+	char	*tmp_line;
+	char 	*main_line;
+	int 	counter;
 
-	tmp_list = *input;
-	decounter = 4;
-	another_str = "";
-
-	printf("%s\n", "inside get_tetriminos - 1");
-	while (get_next_line(fd, &tmp_str))
+	main_line = "";
+	counter = 0;
+	while (counter <= 4)
 	{
-		if (decounter == -1)
-		{
-			decounter = 4;
-			tmp_list = ft_lstnew("\0", 0);
-		}
-		// get_next_line(fd, &tmp_str);
-		// TODO: @celeanor, here should be be your checking funciton
-		// aka: if (!(the_checking_function(tmp_str))
-		//		return (NULL);
-		another_str = ft_strjoin(another_str, tmp_str);
-		//printf("%s\n", another_str);
-		another_str = ft_strjoin(another_str, "\n");
-		decounter--;
-		tmp_list->content = another_str;
-		ft_lstadd_toend(&tmp_list, tmp_list -> next);
+		if(!(get_next_line(fd, &tmp_line)))
+		// + check tmp_line
+			break ;
+		printf("%s\n%s", "got tmp_line", tmp_line);
+		main_line = ft_strjoin(main_line, tmp_line);
+		main_line = ft_strjoin(main_line, "\n");
+		printf("%s\n%s", ":-) got one line of tetromino", main_line);
+		counter--;
 	}
+	if (counter < 4)
+	{
+		free(tmp_line);
+		return (*new_element);
+	}
+	new_element->content = ft_strdup(main_line);
+	return (*new_element);
+}
+
+t_list	*get_tetriminos(int fd)
+{
+	t_list	*tmp_list;
+	t_list	*head;
+
+	tmp_list = ft_lstnew("\0", 0);
+	head = tmp_list;
+	*tmp_list = get_one_tetrimino(tmp_list, fd);
+	printf("%s\n", ":-) got one tetromino");
 	return (tmp_list);
 }
