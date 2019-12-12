@@ -14,7 +14,7 @@
 
 void	ft_doubly_linked_lstadd_toend(d_list** head_ref, d_list *new_node)
 {
-    struct Node* last = *head_ref;
+    d_list* last = *head_ref;
 
     new_node->next = NULL;
 
