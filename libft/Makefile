@@ -21,13 +21,13 @@ SOURCES = ft_atoi.c ft_bzero.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c 
 			ft_count_chars.c ft_count_words.c ft_count_whitespaces.c ft_strdel.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 			ft_isdigit.c ft_isprint.c ft_strnstr.c count_num_size.c ft_freearr.c ft_check_symbol.c ft_lstnew.c \
 			ft_lstadd.c ft_lstiter.c ft_lstdelone.c ft_lstdel.c ft_lstmap.c ft_lstlength.c ft_lstadd_toend.c ft_strndup.c \
-			get_next_line.c
+			get_next_line.c ft_doubly_linked_lstnew.c ft_doubly_linked_lstadd_toend.c
 
 OBJECTS = ${SOURCES:.c=.o}
 
 INCLUDES = libft.h get_next_line.h
 
-all: $(NAME) 
+all: $(NAME)
 
 $(NAME): $(SRCS) $(OBJECTS) $(INCLUDES)
 	ar rc $(NAME) $(OBJECTS)
@@ -37,9 +37,9 @@ $(OBJECTS): %.o: %.c
 	gcc -c -Wall -Wextra $< -I. $(INCLUDES)
 
 clean:
-	/bin/rm -rf $(OBJECTS) 
+	/bin/rm -rf $(OBJECTS)
 
 fclean: clean
 	/bin/rm -rf $(NAME)
 
-re: fclean all 
+re: fclean all
