@@ -23,6 +23,14 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+typedef struct	s2_list
+{
+	void			*content;
+	size_t			content_size;
+	struct s2_list	*next;
+	struct s2_list *previous;
+}				d_list;
+
 void	*ft_memset(void *str, int c, size_t n);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
@@ -99,3 +107,6 @@ t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int		ft_lstlength(t_list *lst);
 void	ft_lstadd_toend(t_list **alst, t_list *new);
 #endif
+
+/*doubly linked lists job*/
+d_list	*ft_doubly_linked_lstnew(void const *content, size_t content_size);
