@@ -11,9 +11,20 @@ void print_linked_list(t_list *head) {
 	}
 }
 
+void print_doubly_linked_list(d_list *head) {
+    d_list *current_node;
+
+    current_node = head;
+    while ( current_node != NULL) {
+        printf("%s\n", "one node");
+        printf("%s ", current_node->content);
+        current_node = current_node->next;
+    }
+}
+
 int     main(int argc, char **argv)
 {
-	t_list *input_data;
+	d_list *input_data;
 	int fd;
 	//char *line;
 
@@ -34,7 +45,7 @@ int     main(int argc, char **argv)
 	{
 			//solution stuff
 	} */
-	print_linked_list(input_data);
+	print_doubly_linked_list(input_data);
 	//input_data = input_data->next;
 	printf("%s\n", "attention! new print");
 	//printf("%s ", input_data->content);

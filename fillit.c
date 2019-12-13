@@ -2,7 +2,7 @@
 # include "libft/get_next_line.h"
 # include "fillit.h"
 
-int	get_one_tetrimino(t_list **new_element, int fd, size_t letter)
+int	get_one_tetrimino(d_list **new_element, int fd, size_t letter)
 {
 	char	*tmp_line;
 	char 	*main_line;
@@ -29,20 +29,20 @@ int	get_one_tetrimino(t_list **new_element, int fd, size_t letter)
 	return (1);
 }
 
-t_list	*get_tetriminos(int fd)
+d_list	*get_tetriminos(int fd)
 {
-	t_list	*tmp_list;
-	t_list  *next_list;
-	t_list	*head;
+	d_list	*tmp_list;
+	d_list  *next_list;
+	d_list	*head;
 	size_t  letter_num;
 
 	letter_num = 1;
-	tmp_list = ft_lstnew("\0", 0);
+	tmp_list = ft_doubly_linked_lstnew("\0", 0);
 	head = tmp_list;
 	while ((get_one_tetrimino(&tmp_list, fd, letter_num)))
     {
-	    next_list = ft_lstnew("\0", 0);
-	    ft_lstadd_toend(&tmp_list, next_list);
+	    next_list = ft_doubly_linked_lstnew("\0", 0);
+	    ft_doubly_linked_lstadd_toend(&tmp_list, next_list);
 	    tmp_list = tmp_list->next;
 
     }

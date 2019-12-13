@@ -13,6 +13,6 @@ t_list	*get_tetriminos(int fd);*/
 // 2. just read and save to t_list->content one tetromino
 // 3. apply checks one by one
 
-t_list	*get_tetriminos(int fd);
+d_list	*get_tetriminos(int fd);
 void print_linked_list(t_list *head);
 #endif
