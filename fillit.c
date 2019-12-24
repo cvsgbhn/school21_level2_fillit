@@ -17,8 +17,15 @@ int count_not_symbol(char symb, char *str)
 
 int check_one_tetromino(d_list tetromino)
 {
+    int     validator;
+    int     counter;
+
+    validator = 0;
+    counter = 0;
 	if ((count_not_symbol('.', tetromino->content)) == 4)
-		{}
+	{
+	    while (tetromino)
+	}
 }
 
 int	check_one_tetrostring(char *string)
