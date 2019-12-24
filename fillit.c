@@ -2,6 +2,40 @@
 # include "libft/get_next_line.h"
 # include "fillit.h"
 
+int count_not_symbol(char symb, char *str)
+{
+	int iterator = 0;
+	int counter = 0;
+
+	while (str[iterator])
+	{
+		if (str[iterator] != '.')
+			counter++;
+	}
+	return (counter);
+}
+
+int check_one_tetromino(d_list tetromino)
+{
+	if ((count_not_symbol('.', tetromino->content)) == 4)
+		{}
+}
+
+int	check_one_tetrostring(char *string)
+{
+	int iterator;
+
+	iterator = 0;
+	if ft_strlen(string) != 5
+		return (0);
+	while (string[iterator] != '\n')
+	{
+		if (string[iterator] != '.' && string[iterator] != '#')
+			return (0);
+	}
+	return (1);
+}
+
 /*
  * this function replaces one given character (original) to another given character (new) in a given string (string)
  */
@@ -41,6 +75,7 @@ int	get_one_tetrimino(d_list **new_element, int fd, size_t letter)
 		if(!(get_next_line(fd, &tmp_line)))
 		// TODO: checking function, smth like: checking_function(char *tmp_line, ....)
 			break ;
+		check_one_tetrostring(tmp_line);
 		main_line = ft_strjoin(main_line, tmp_line);
 		main_line = ft_strjoin(main_line, "\n");
 		counter++;
