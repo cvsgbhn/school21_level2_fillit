@@ -14,22 +14,22 @@
 // add_row
 
 // solution
-int   solution(col_obj *root, col_obj *tmp_sol)
+int   search(col_obj *root, col_obj *tmp_sol)
 {
-    col_obj  *chosen_col;
-    x_node  *next_node;
-    int     row_num;
-   // success = 1
-   // fail = 0
-   // error = -1
-   if ((is_empty == 1))
-       return (1);
-   chosen_col = find_column(root);
-   row_num = find_row(chosen_col);
-   add_row(row_num, tmp_sol);
-   next_node = root;
-   // move from matrix header, to r each it at the end of while
-   while (next_node->row_num != 1)
-       next_node = next_node->right;
+    col_obj *c_col;
+    col_obj *copy;
+
+    copy = &root;
+    if (root->next == root)
+    {
+        modify_solution(&tmp_sol);
+        return (1);
+    }
+    c_col = find_column(copy); // where root->size is min but != 0
+    cover(c_col);
+    // traverse down, in each step traverse right, cover every column, where object exists
+    while (c_col->)
+
+
 
 }
