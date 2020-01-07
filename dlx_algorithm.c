@@ -27,18 +27,54 @@ void    cover(col_obj *column)
         column->size = column->size - 1;
         x_side = x_side->down;
     }
-
 }
 // uncover
+void    uncover(x_node *x_obj)
+{
+    x_node  *x_col;
+    x_node  *x_row;
+    col_obj *column;
 
+    x_col = x_obj->up;
+    x_row = x_obj->left;
+    column = x_obj->C;
+    while (x_col != x_obj)
+    {
+        while (x_row != x_col)
+        {
+            column->size++;
+            x_row->up->down = x_row;
+            x_row->down->up = x_row;
+            x_row = x_row->left;
+        }
+        x_line = x_line->up;
+    }
+    column->list_header.left->right = column->list_header;
+    column->list_header.right->left = column->list_header;
+}
 // find column with fewest 1's: func to count sum of a column
-// sum_ones, find_column
+col_obj find_column(col_obj *root)
+{
+    int     min;
+    x_node  *header;
+    col_obj *column;
+    col_obj *min_column;
 
-// function to check if given matrix is empty (have no nodes except root)
-// int  is_empty(x_node *root)
-
-// add to temporary solution function
-// add_row
+    header = root->list_header.right;
+    min_column = column;
+    min = column->size;
+    while (header != root->list_header)
+    {
+        column = header->C;
+        if (column->size < min)
+        {
+            min = column->size;
+            min_column = column;
+        }
+        header = header->right;
+    }
+    return (min_column);
+}
 
 // solution
 int   search(col_obj *root, col_obj *tmp_sol)
