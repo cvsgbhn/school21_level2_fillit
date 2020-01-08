@@ -1,5 +1,31 @@
 #include "dlx_algorithm.h"
 
+x_node  *create_x_node(col_obj input_C, int input_row_num)
+{
+    x_node  *new_node;
+
+    new_node = (x_node *)malloc(sizeof(x_node));
+    new_node->right = NULL;
+    new_node->left = NULL;
+    new_node->up = NULL;
+    new_node->down = NULL;
+    new_node->C = input_C;
+    new_node->row_num = input_row_num;
+    return (new_node);
+}
+
+col_obj *create_col_obj(x_node *obj, char input_name, int input_number)
+{
+    col_obj *new_co;
+
+    new_co = (col_obj *)malloc(sizeof(col_obj));
+    new_co->size = 0;
+    new_co->list_header = obj;
+    new_co->name = input_name;
+    new_co->number = input_number;
+    return (col_obj);
+}
+
 // cover
 void    cover(col_obj *column)
 {

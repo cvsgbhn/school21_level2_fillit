@@ -9,3 +9,12 @@
 */
 
 TODO: add static int, to increment while adding nodes till 26
+
+TODO: 1. move tetromino to (0;0)
+        1.1. count old coords
+        1.2. count new coords
+        1.3. rewrite figure
+      2. create Knuth's structures
+        1.1. node_x
+        1.2. col_obj
+      3. add structures to a linked list
