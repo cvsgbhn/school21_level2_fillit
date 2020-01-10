@@ -2,6 +2,69 @@
 # include "libft/get_next_line.h"
 # include "fillit.h"
 
+int     *find_old_coordinates(char *tetrimino)
+{
+    int     rows_num;
+    int     counter;
+    int     coordinates[8];
+    int     coord;
+
+    rows_num = 0;
+    counter = 0;
+    coord = 0;
+    while (rows_num != 3)
+    {
+        while (tetrimino[counter + 4*rows_num] && counter != 4)
+        {
+            if (tetrimino[counter + 4*rows_num] == '#')
+            {
+                coordinates[coord] = counter;
+                coordinates[coord + 1] = rows_num;
+                coord += 2;
+            }
+            counter ++;
+        }
+        rows_num++;
+    }
+    return (coordinates);
+}
+
+int     min_in_array(int *numbers)
+{
+    int     min;
+    int     counter;
+
+    counter = 0;
+    min = numbers[counter];
+    while (numbers[counter])
+    {
+        if (numbers[counter] < min)
+            min = numbers[counter];
+        counter++;
+    }
+    return (min);
+}
+
+int     *find_new_coordinates(char *tetrimino)
+{
+    int     coords[8];
+    int     counter;
+
+    counter = 0;
+    coords = find_old_coordinates(tetrimino);
+    min = min_in_array(coords);
+    while (counter != 8)
+    {
+        coords[counter] = coords[counter] - min;
+        counter++;
+    }
+    return (coords);
+}
+
+char    *rewrite_to_oo(char *tetrimino)
+{
+}
+
 int count_not_symbol(char symb, char *str)
 {
 	int iterator = 0;
