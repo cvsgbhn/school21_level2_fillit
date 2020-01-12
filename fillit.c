@@ -63,6 +63,14 @@ int     *find_new_coordinates(char *tetrimino)
 
 char    *rewrite_to_oo(char *tetrimino)
 {
+    int     newlines;
+    int     new_coords[8];
+
+    newlines = 0;
+    new_coords = find_new_coordinates(tetrimino);
+    
+    while (newlines < 4)
+    {}
 }
 
 int count_not_symbol(char symb, char *str)
