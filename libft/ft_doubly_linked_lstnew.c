@@ -36,5 +36,6 @@ d_list	*ft_doubly_linked_lstnew(void const *content, size_t content_size)
 	}
 	newlist->next = NULL;
 	newlist->previous = NULL;
+	newlist->coords = 0;
 	return (newlist);
 }

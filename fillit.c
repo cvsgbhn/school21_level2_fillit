@@ -2,6 +2,13 @@
 # include "libft/get_next_line.h"
 # include "fillit.h"
 
+void *move_tetrimino_once(size_t square_size, d_list tetrimino)
+{
+  // 1. x coord ++
+  // 2. if x coord > square_size => x coord = 0, y coord ++
+  // 3. if y coord > square_size => end
+}
+
 int     *find_old_coordinates(char *tetrimino)
 {
     int     rows_num;
@@ -61,18 +68,6 @@ int     *find_new_coordinates(char *tetrimino)
     return (coords);
 }
 
-char    *rewrite_to_oo(char *tetrimino)
-{
-    int     newlines;
-    int     new_coords[8];
-
-    newlines = 0;
-    new_coords = find_new_coordinates(tetrimino);
-    
-    while (newlines < 4)
-    {}
-}
-
 int count_not_symbol(char symb, char *str)
 {
 	int iterator = 0;
@@ -86,6 +81,7 @@ int count_not_symbol(char symb, char *str)
 	return (counter);
 }
 
+//////////////////////////////////////////////////
 int check_one_tetromino(d_list tetromino)
 {
     int     validator;
@@ -98,6 +94,7 @@ int check_one_tetromino(d_list tetromino)
 	    while (tetromino)
 	}
 }
+//////////////////////////////////////////////////
 
 int	check_one_tetrostring(char *string)
 {
@@ -162,6 +159,7 @@ int	get_one_tetrimino(d_list **new_element, int fd, size_t letter)
 		return (0);
     (*new_element)->content = ft_strdup(main_line);
     (*new_element)->content_size = letter;
+    (*new_element)->coords = find_new_coordinates(new_element->content);
 	return (1);
 }
 
@@ -179,13 +177,13 @@ d_list	*get_tetriminos(int fd)
 	tmp_list = ft_doubly_linked_lstnew("\0", 0);
 	head = tmp_list;
 	while ((get_one_tetrimino(&tmp_list, fd, letter_num)))
-    {
-	    next_list = ft_doubly_linked_lstnew("\0", 0);
-	    ft_doubly_linked_lstadd_toend(&tmp_list, next_list);
-	    tmp_list->content = replace_character(tmp_list->content, '#', letter_num);
-	    tmp_list = tmp_list->next;
-	    letter_num ++;
-    }
+  {
+    next_list = ft_doubly_linked_lstnew("\0", 0);
+    ft_doubly_linked_lstadd_toend(&tmp_list, next_list);
+	  tmp_list->content = replace_character(tmp_list->content, '#', letter_num);
+	  tmp_list = tmp_list->next;
+	  letter_num ++;
+  }
 	// test printf, never mind
 	printf("%s\n", ":-) got one tetromino");
 
