@@ -2,11 +2,31 @@
 # include "libft/get_next_line.h"
 # include "fillit.h"
 
-void *move_tetrimino_once(size_t square_size, d_list tetrimino)
+void    *coords_rollback(int last_coord, d_list tetrimino)
 {
+    // coords - 1
+}
+
+void    *move_tetrimino_once(int square_size, d_list tetrimino)
+{
+    int     iterator;
+
+    iterator = 0;
   // 1. x coord ++
-  // 2. if x coord > square_size => x coord = 0, y coord ++
-  // 3. if y coord > square_size => end
+  while ((tetrimino.coords)[iterator] < 8)
+  {
+      tetrimino.coords[iterator]++;
+      if (tetrimino.coords[iterator] > square_size)
+      {
+          coords_rollback(iterator, &tetrimino);
+
+
+      }
+      // 2. if x coord > square_size => x coord = 0, y coord ++
+      // 3. if y coord > square_size => end
+      iterator = iterator + 2;
+  }
+
 }
 
 int     *find_old_coordinates(char *tetrimino)
@@ -54,15 +74,38 @@ int     min_in_array(int *numbers)
 
 int     *find_new_coordinates(char *tetrimino)
 {
-    int     coords[8];
+    int     coords_x[4];
+    int     coords_y[4];
     int     counter;
+    int     x;
+    int     y;
 
     counter = 0;
     coords = find_old_coordinates(tetrimino);
-    min = min_in_array(coords);
+    x = 0;
+    y = 0;
     while (counter != 8)
     {
-        coords[counter] = coords[counter] - min;
+        if (counter == 0 || counter % 2 == 0)
+        {
+            coords_x[x] = coords[counter];
+            x++;
+        }
+        else
+        {
+            coords_y[y] = coords[counter];
+            y++;
+        }
+        counter++;
+    }
+    min_x = min_in_array(coords_x);
+    min_y = min_in_array(coords_y)
+    while (counter != 0)
+    {
+        if (counter == 0 || counter % 2 == 0)
+            coords[counter] == coords[counter] - min_y;
+        else
+            coords[counter] == coords[counter] - min_x;
         counter++;
     }
     return (coords);
