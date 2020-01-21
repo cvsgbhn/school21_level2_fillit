@@ -5,6 +5,14 @@
 void    *coords_rollback(int last_coord, d_list tetrimino)
 {
     // coords - 1
+    int     counter;
+
+    counter = 0;
+    while (counter != last_coord)
+    {
+        tetrimino.coords[counter]--;
+        counter++;
+    }
 }
 
 void    *move_tetrimino_once(int square_size, d_list tetrimino)
@@ -19,6 +27,7 @@ void    *move_tetrimino_once(int square_size, d_list tetrimino)
       if (tetrimino.coords[iterator] > square_size)
       {
           coords_rollback(iterator, &tetrimino);
+
 
 
       }

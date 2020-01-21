@@ -27,7 +27,8 @@ typedef struct	s2_list
 {
 	void			*content;
 	size_t			content_size;
-	int 				coords[8];
+	int 				x_coords[4];
+	int					y_coords[4];
 	struct s2_list	*next;
 	struct s2_list *previous;
 }				d_list;
