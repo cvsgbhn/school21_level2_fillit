@@ -65,6 +65,26 @@ int     *find_old_coordinates(char *tetrimino)
     return (coordinates);
 }
 
+int   *parse_to_xy(int coords[8], char xory)
+{
+  int   iterator;
+  int   subcoor;
+  int   oxoy[4];
+
+  iterator = 0;
+  subcoor = 0;
+  oxoy = [0,0,0,0];
+  if (xory == 'y')
+    iterator++;
+  while (iterator < 8)
+  {
+    oxoy[subcoor] = coords[iterator];
+    subcoor++;
+    iterator += 2;
+  }
+  return (oxoy);
+}
+
 int     min_in_array(int *numbers)
 {
     int     min;
@@ -211,7 +231,8 @@ int	get_one_tetrimino(d_list **new_element, int fd, size_t letter)
 		return (0);
     (*new_element)->content = ft_strdup(main_line);
     (*new_element)->content_size = letter;
-    (*new_element)->coords = find_new_coordinates(new_element->content);
+    (*new_element)->x_coords[0,0,0,0];
+    (*new_element)->y_coords[0,0,0,0];
 	return (1);
 }
 

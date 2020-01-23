@@ -1,21 +1,22 @@
 /* find square root */
-
 int sqrt_root(int number)
 {
-    int temp;
-    int x;
-    if (number < 0)
-        number = -number;
-    while ()
-    for (temp = 0, x = 1u << (sizeof(unsigned int) * 4 - 1); x; x >>= 1) {
-        if ((temp | x) * (temp | x) <= number)
-            temp |= x;
-    }
-    return temp;
+  int   root;
+  int   result;
+
+  root = 1;
+  result = 1;
+  if (number == 0 || number == 1)
+  return number;
+  while (result <= number)
+  {
+    root++;
+    result = root * root;
+  }
+  return root - 1;
 }
 
 /*find size of field */
-
 int find_field_size(int tetro_num)
 {
     int     size;
