@@ -10,7 +10,7 @@
 * may be there will be one for y rollback, i have no fucking idea
 */
 // ACHTUNG! WORK IS CONTINUING
-void    *coords_rollback(int last_coord, d_list tetrimino)
+void    *coords_rollback(int last_coord, d_list tetromino)
 {
     // coords - 1
     int     counter;
@@ -18,7 +18,7 @@ void    *coords_rollback(int last_coord, d_list tetrimino)
     counter = 0;
     while (counter != last_coord)
     {
-        tetrimino.coords[counter]--;
+        tetromino.coords[counter]--;
         counter++;
     }
 }
@@ -30,35 +30,39 @@ void    *coords_rollback(int last_coord, d_list tetrimino)
 * move further down the board.
 * if the end of board reached - return something like nothing
 */
-// ACHTUNG! WORK IS CONTINUING
-void    *move_tetrimino_once(int square_size, d_list tetrimino)
+void    *move_tetromino_once(int square_size, int x_coords[4], int y_coords[4])
 {
-    int     iterator;
+    int     ox;
+    int     oy;
 
-    iterator = 0;
-  // 1. x coord ++
-  while ((tetrimino.coords)[iterator] < 8)
-  {
-      tetrimino.coords[iterator]++;
-      if (tetrimino.coords[iterator] > square_size)
+    ox = -1;
+    oy = -1;
+    while (ox++ < 4)
+    {
+      if (x_coords[ox] > square_size)
       {
-          coords_rollback(iterator, &tetrimino);
-
-
-
+        coords_rollback(ox, x_coords);
+        while (oy++ < 4)
+        {
+          y_coords[oy]++;
+          if (y_coords[oy] >square_size)
+          {
+            coords_rollback(oy, y_coords);
+            ox = 4;
+            oy = 4;
+          }
+        }
       }
-      // 2. if x coord > square_size => x coord = 0, y coord ++
-      // 3. if y coord > square_size => end
-      iterator = iterator + 2;
+      x_coords[ox]++;
+    }
   }
-
 }
 
 /*
 * write original coordinates of every point of tetromino
 * in a single array
 */
-int     *find_old_coordinates(char *tetrimino)
+int     *find_old_coordinates(char *tetromino)
 {
     int     rows_num;
     int     counter;
@@ -70,9 +74,9 @@ int     *find_old_coordinates(char *tetrimino)
     coord = 0;
     while (rows_num != 3)
     {
-        while (tetrimino[counter + 4*rows_num] && counter != 4)
+        while (tetromino[counter + 4*rows_num] && counter != 4)
         {
-            if (tetrimino[counter + 4*rows_num] == '#')
+            if (tetromino[counter + 4*rows_num] == '#')
             {
                 coordinates[coord] = counter;
                 coordinates[coord + 1] = rows_num;
@@ -223,7 +227,7 @@ char* replace_character(char *string, char original, char new)
 /*
  * here we read and write just one tetromino to its own element of DDL
  */
-int	get_one_tetrimino(d_list **new_element, int fd, size_t letter)
+int	get_one_tetromino(d_list **new_element, int fd, size_t letter)
 {
 	char	*tmp_line;
 	char 	*main_line;
@@ -254,7 +258,7 @@ int	get_one_tetrimino(d_list **new_element, int fd, size_t letter)
 /*
  * this funciton takes existing DDL and adds to it one by one new elements with written tetrominoes
  */
-d_list	*get_tetriminos(int fd)
+d_list	*get_tetrominos(int fd)
 {
 	d_list	*tmp_list;
 	d_list  *next_list;
@@ -264,7 +268,7 @@ d_list	*get_tetriminos(int fd)
 	letter_num = 65;
 	tmp_list = ft_doubly_linked_lstnew("\0", 0);
 	head = tmp_list;
-	while ((get_one_tetrimino(&tmp_list, fd, letter_num)))
+	while ((get_one_tetromino(&tmp_list, fd, letter_num)))
   {
     next_list = ft_doubly_linked_lstnew("\0", 0);
     ft_doubly_linked_lstadd_toend(&tmp_list, next_list);

@@ -41,7 +41,7 @@ int     main(int argc, char **argv)
 	// read the file
 	fd = open(argv[1], O_RDONLY);
 	// write to the input_data terominoes
-	input_data = get_tetriminos(fd);
+	input_data = get_tetrominos(fd);
 	// print our DDL, just to check if everything is alright
 	print_doubly_linked_list(input_data);
 	// if success - return 1
