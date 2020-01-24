@@ -1,4 +1,6 @@
-/* find square root */
+/*
+* find int square root
+*/
 int sqrt_root(int number)
 {
   int   root;
@@ -16,7 +18,9 @@ int sqrt_root(int number)
   return root - 1;
 }
 
-/*find size of field */
+/*
+* find size of the board
+*/
 int find_field_size(int tetro_num)
 {
     int     size;

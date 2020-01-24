@@ -2,6 +2,14 @@
 # include "libft/get_next_line.h"
 # include "fillit.h"
 
+// TODO: rename all tetrimino to tetromino. this misprint is annoying. how could i be so stupid?
+// well, i still am
+/*
+* almost the same like move tetrimino further - rollback.
+* but only for x axys.
+* may be there will be one for y rollback, i have no fucking idea
+*/
+// ACHTUNG! WORK IS CONTINUING
 void    *coords_rollback(int last_coord, d_list tetrimino)
 {
     // coords - 1
@@ -15,6 +23,14 @@ void    *coords_rollback(int last_coord, d_list tetrimino)
     }
 }
 
+/*
+* move tetrimino figure on the board, one position further to the right.
+* we need here to recalculate coordinates for every spot.
+* if any single spot coordinate > size of board: rollback,
+* move further down the board.
+* if the end of board reached - return something like nothing
+*/
+// ACHTUNG! WORK IS CONTINUING
 void    *move_tetrimino_once(int square_size, d_list tetrimino)
 {
     int     iterator;
@@ -38,6 +54,10 @@ void    *move_tetrimino_once(int square_size, d_list tetrimino)
 
 }
 
+/*
+* write original coordinates of every point of tetromino
+* in a single array
+*/
 int     *find_old_coordinates(char *tetrimino)
 {
     int     rows_num;
@@ -65,6 +85,10 @@ int     *find_old_coordinates(char *tetrimino)
     return (coordinates);
 }
 
+/*
+* function to separate unioned coordinates to x-coordinates array
+* and y-coordinates array
+*/
 int   *parse_to_xy(int coords[8], char xory)
 {
   int   iterator;
@@ -85,6 +109,9 @@ int   *parse_to_xy(int coords[8], char xory)
   return (oxoy);
 }
 
+/*
+* function to find minimum int in the int* array
+*/
 int     min_in_array(int *numbers)
 {
     int     min;
@@ -101,45 +128,30 @@ int     min_in_array(int *numbers)
     return (min);
 }
 
-int     *find_new_coordinates(char *tetrimino)
+/*
+* moving tetromino to (0;0) spot on the field
+* for every x in x-coordinates array: x = x - min(x-coordinates)
+* for every y in y-coordinates array: y = y - min(y-coordinates)
+*/
+int   *find_new_coordinates(int *xory_coords)
 {
-    int     coords_x[4];
-    int     coords_y[4];
-    int     counter;
-    int     x;
-    int     y;
+  int   counter;
+  int   min;
 
-    counter = 0;
-    coords = find_old_coordinates(tetrimino);
-    x = 0;
-    y = 0;
-    while (counter != 8)
-    {
-        if (counter == 0 || counter % 2 == 0)
-        {
-            coords_x[x] = coords[counter];
-            x++;
-        }
-        else
-        {
-            coords_y[y] = coords[counter];
-            y++;
-        }
-        counter++;
-    }
-    min_x = min_in_array(coords_x);
-    min_y = min_in_array(coords_y)
-    while (counter != 0)
-    {
-        if (counter == 0 || counter % 2 == 0)
-            coords[counter] == coords[counter] - min_y;
-        else
-            coords[counter] == coords[counter] - min_x;
-        counter++;
-    }
-    return (coords);
+  counter = 0;
+  min = min_in_array(xory_coords);
+  while (counter < 4)
+  {
+    xory_coords[counter] = xory_coords[counter] - min;
+    counter++;
+  }
+  return (xory_coords);
 }
 
+/*
+* function to check symbol validity
+*/
+// TODO: wtf is this???? I need normal one!!!!!!!
 int count_not_symbol(char symb, char *str)
 {
 	int iterator = 0;
@@ -168,6 +180,9 @@ int check_one_tetromino(d_list tetromino)
 }
 //////////////////////////////////////////////////
 
+/*
+* check validity of the one string of tetromino
+*/
 int	check_one_tetrostring(char *string)
 {
 	int iterator;
