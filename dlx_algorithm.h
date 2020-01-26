@@ -13,6 +13,7 @@ typedef struct          data_object
     struct data_object  *up;
     struct data_object  *down;
     struct data_object  *C;
+    int                 letter;
     int                 row_num;
 }                       x_node;
 
@@ -20,7 +21,6 @@ typedef struct column_object
 {
     x_node  list_header;
     int     size;
-    char    name;
     int     x; // board coord x
     int     y; // board coord y
 }           col_obj;

@@ -2,10 +2,8 @@
 # include "libft/get_next_line.h"
 # include "fillit.h"
 
-// TODO: rename all tetrimino to tetromino. this misprint is annoying. how could i be so stupid?
-// well, i still am
 /*
-* almost the same like move tetrimino further - rollback.
+* almost the same like move tetromino further - rollback.
 * but only for x axys.
 * may be there will be one for y rollback, i have no fucking idea
 */
@@ -16,7 +14,7 @@ void    *coords_rollback(int last_coord, d_list tetromino)
     int     counter;
 
     counter = 0;
-    while (counter != last_coord)
+    while (counter <= last_coord)
     {
         tetromino.coords[counter]--;
         counter++;
@@ -169,20 +167,6 @@ int count_not_symbol(char symb, char *str)
 	return (counter);
 }
 
-//////////////////////////////////////////////////
-int check_one_tetromino(d_list tetromino)
-{
-    int     validator;
-    int     counter;
-
-    validator = 0;
-    counter = 0;
-	if ((count_not_symbol('.', tetromino->content)) == 4)
-	{
-	    while (tetromino)
-	}
-}
-//////////////////////////////////////////////////
 
 /*
 * check validity of the one string of tetromino
@@ -202,27 +186,6 @@ int	check_one_tetrostring(char *string)
 	return (1);
 }
 
-/*
- * this function replaces one given character (original) to another given character (new) in a given string (string)
- */
-char* replace_character(char *string, char original, char new)
-{
-    char    *new_string;
-    int     counter;
-
-    new_string = ft_memalloc(ft_strlen(string));
-    counter = 0;
-    while (string[counter])
-    {
-        if (string[counter] == original)
-            new_string[counter] = new;
-        else
-            new_string[counter] = string[counter];
-        counter++;
-    }
-
-    return (new_string);
-}
 
 /*
  * here we read and write just one tetromino to its own element of DDL
@@ -272,7 +235,6 @@ d_list	*get_tetrominos(int fd)
   {
     next_list = ft_doubly_linked_lstnew("\0", 0);
     ft_doubly_linked_lstadd_toend(&tmp_list, next_list);
-	  tmp_list->content = replace_character(tmp_list->content, '#', letter_num);
 	  tmp_list = tmp_list->next;
 	  letter_num ++;
   }
