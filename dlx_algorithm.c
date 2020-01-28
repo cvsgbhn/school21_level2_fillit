@@ -1,34 +1,8 @@
 #include "dlx_algorithm.h"
 
-x_node  *create_x_node(col_obj input_C, int input_row_num, int letter_num)
-{
-    x_node  *new_node;
-
-    new_node = (x_node *)malloc(sizeof(x_node));
-    new_node->right = NULL;
-    new_node->left = NULL;
-    new_node->up = NULL;
-    new_node->down = NULL;
-    new_node->C = input_C;
-    new_node->row_num = input_row_num;
-    new_node->letter = letter_num;
-    return (new_node);
-}
-
-col_obj *create_col_obj(x_node *obj, int x, int y)
-{
-    col_obj *new_co;
-
-    new_co = (col_obj *)malloc(sizeof(col_obj));
-    new_co->size = 0;
-    new_co->list_header = obj;
-    new_co->x = x;
-    new_co->y = y;
-    obj->C = &new_co;
-    return (new_co);
-}
-
-// cover
+/*
+* Cover action according to Knuth's paper 'Dancing links'
+*/
 void    cover(col_obj *column)
 {
     x_node  *x_obj;
@@ -56,7 +30,10 @@ void    cover(col_obj *column)
         x_side = x_side->down;
     }
 }
-// uncover
+
+/*
+* Unover action according to Knuth's paper 'Dancing links'
+*/
 void    uncover(x_node *x_obj)
 {
     x_node  *x_col;
@@ -80,7 +57,12 @@ void    uncover(x_node *x_obj)
     column->list_header.left->right = column->list_header;
     column->list_header.right->left = column->list_header;
 }
-// find column with fewest 1's: func to count sum of a column
+
+
+/*
+*
+find column with fewest 1's: func to count sum of a column
+but it appears that moulinette thinks another way
 col_obj find_column(col_obj *root)
 {
     int     min;
@@ -103,6 +85,7 @@ col_obj find_column(col_obj *root)
     }
     return (min_column);
 }
+*/
 
 // solution
 int   search(col_obj *root, col_obj *tmp_sol)

@@ -25,6 +25,4 @@ typedef struct column_object
     int     y; // board coord y
 }           col_obj;
 
-// TODO: need function to calculate these coords according to board size
-
-#endif // SCHOOL21_LEVEL2_FILLIT_DLX_ALGORITHM_H
+#endif
