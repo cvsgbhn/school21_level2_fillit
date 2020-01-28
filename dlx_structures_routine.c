@@ -1,9 +1,39 @@
 #include "dlx_algorithm.h"
 
 /*
-* add tetromino on board, according to given coords
-*/
+ * function to connect x_nodes vertically, while adding to a board
+ */
+void    connect_vertical(x_node *x_new, x_node *root)
+{}
 
+/*
+ * add tetromino on board, according to given coords
+ * 1. run through col_obj, while not found needed pair of coords
+ * 2. in that exact spot, where coords are the same - create x_node (also save
+ * its pointer, also link it to col_obj, also link it to the higher x_nodes, if they exist)
+*/
+// MOTHERFUNKERS, I CAAAAAAAAN't DO ALL THIS STUFF SOS SOS SOS
+void    add_to_board(int name, int x[4], int y[4], x_node *root)
+{
+    int     num;
+    x_node  *x_next;
+    x_node  *x_new;
+
+    num = 0;
+    x_next = &(root->right);
+    while (num < 4)
+    {
+        while (x_next != root->right)
+        {
+            if (x_next->C->x == x[num] && x_next->C->y == y[num])
+            {
+                x_new = create_x_node(x_next->C, name);
+                connect_vertical(x_new, root);
+
+            }
+        }
+    }
+}
 
 /*
 * input: tetromino element name, tetromino element coords
@@ -14,7 +44,7 @@
 /*
 * Function to create new empty x_node structure
 */
-x_node  *create_x_node(col_obj input_C, int input_row_num, int letter_num)
+x_node  *create_x_node(col_obj input_C, int letter_num)
 {
     x_node  *new_node;
 
@@ -24,7 +54,6 @@ x_node  *create_x_node(col_obj input_C, int input_row_num, int letter_num)
     new_node->up = NULL;
     new_node->down = NULL;
     new_node->C = input_C;
-    new_node->row_num = input_row_num;
     new_node->letter = letter_num;
     return (new_node);
 }
