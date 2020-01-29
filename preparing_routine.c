@@ -22,7 +22,7 @@ void    *coords_rollback(int last_coord, d_list tetromino)
 * move further down the board.
 * if the end of board reached - return something like nothing
 */
-void    *move_tetromino_once(int square_size, int x_coords[4], int y_coords[4])
+int    move_tetromino_once(int square_size, int x_coords[4], int y_coords[4])
 {
     int     ox;
     int     oy;
@@ -38,16 +38,13 @@ void    *move_tetromino_once(int square_size, int x_coords[4], int y_coords[4])
         {
           y_coords[oy]++;
           if (y_coords[oy] >square_size)
-          {
-            coords_rollback(oy, y_coords);
-            ox = 4;
-            oy = 4;
-          }
+            return(-1);
         }
       }
       x_coords[ox]++;
     }
   }
+  return(1);
 }
 
 /*
