@@ -88,38 +88,30 @@ col_obj find_column(col_obj *root)
 */
 
 // solution
-int   search(col_obj *root, col_obj *tmp_sol)
+int   search(x_node *root, x_node *tmp_sol, int level)
 {
-    col_obj *c_col;
-    col_obj *copy;
-    x_node *travel;
-    x_node *pin;
+    x_node  *x_right;
+    x_node  *x_left;
+    x_node  *x_travel;
+    col_obj *column;
+    int     x_name;
 
-    copy = &root;
-    if (root->next == root) {
-        modify_solution(&tmp_sol);
-        return (1);
-    }
-    c_col = find_column(copy); // where root->size is min but != 0
-    travel = c_col->list_header;
-    cover(c_col);
-    // traverse down, in each step traverse right, cover every column, where object exists
-    while (travel != travel->C) {
-        travel = travel->down;
-        pin = travel;
-        while (travel->right != pin) {
-            cover(travel->C);
-            travel = travel->right;
+    x_name = x_travel->letter;
+    if (x_right->right == &root)
+        return 1;
+    column = x_right->C;
+    x_travel = column->list_header;
+    cover(&column);
+    while(x_travel->down != column->list_header)
+    {
+        add_to_solution(&tmp_sol, &x_travel);
+        x_right = x_travel->right;
+        while(x_right->right != x_travel)
+        {
+            cover(x_right->C);
+            x_right = x_right->right;
         }
-        search(root);
-        travel = pin;
-        pin = travel->C;
-        while (travel != pin) {
-            uncover(travel);
-            travel = travel->left;
-        }
-        uncover(pin);
+        x_travel = x_travel->down;
+
     }
-    uncover(pin);
-    return (0);
 }
