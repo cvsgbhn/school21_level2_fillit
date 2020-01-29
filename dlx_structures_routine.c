@@ -97,28 +97,6 @@ void	ft_xnode_add_toend(x_node** head_ref, x_node *new_node)
     return;
 }
 
-
-x_node     *create_xnode_list(int size, int letter)
-{
-    int     x;
-    int     y;
-    x_node  *root_xnode;
-    x_node  *next_xnode;
-
-    root_xnode = create_x_node(NULL, letter);
-    root_colobj = create_col_obj(, x, y);
-    y = -1;
-    while (y++ < size)
-    {
-        if (x == size && y == size)
-            ft_xnode_add_toend(root_xnode, create_x_node(root_xnode, letter));
-        x = -1;
-        while (x++ < size)
-            ft_xnode_add_toend(root_xnode, create_x_node(NULL, letter));
-    }
-      return (root_xnode);
-}
-
 /*
  * create right & left linked list of x_nodes for headers list
  */

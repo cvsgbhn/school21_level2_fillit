@@ -25,4 +25,23 @@ typedef struct column_object
     int     y; // board coord y
 }           col_obj;
 
+/*
+ * dlx_structure_routine.c
+*/
+void    connect_vertical(x_node *x_new, x_node *column);
+void    add_to_board(int name, int x[4], int y[4], x_node *root);
+void add_all_tetromino_positions(d_list *tetro, x_node *root, int square_size);
+void	ft_xnode_add_toend(x_node** head_ref, x_node *new_node);
+x_node  *create_xnode_list(int size, int letter);
+void    create_headers_list(x_node *root, int size);
+x_node  *create_x_node(col_obj input_C, int letter_num);
+col_obj *create_col_obj(x_node *obj, int x, int y);
+
+/*
+ * dlx_algorithm.c
+*/
+void    cover(col_obj *column);
+void    uncover(x_node *x_obj);
+int   search(col_obj *root, col_obj *tmp_sol);
+
 #endif
