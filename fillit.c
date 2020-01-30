@@ -48,7 +48,39 @@ int     main(int argc, char **argv)
 }
 */
 
+/*
+ * transformation from Knuth's matrix to char[][]
+ */
+void	transformate(x_node *result, char **matrix)
+{
+	// 1. take node's coords and letter
+	// 2. put chars in matrix according 1
+	// 3. repeat while result
+	int 	x_x[4];
+	int		x_y[4];
 
+}
+
+/*
+ * printing result matrix
+ */
+void	print_result(x_node *result, int size)
+{
+	char	matrix[size + 1][size + 1];
+	int 	row;
+	int 	col;
+
+	row = 0;
+	transformate(&result, &matrix);
+	while(row++ <= size)
+	{
+		col = 0;
+		while(col++ <= size)
+			ft_putstr(matrix[row, col]);
+	}
+
+
+}
 /*
  * new main funciton
 */
@@ -75,11 +107,13 @@ int main(int argc, char **argv)
 	initial_matrix = create_xnode_list(size, 65);
 	create_headers_list(initial_matrix, size);
 	add_all_tetromino_positions(&input_data, &initial_matrix);
-	fd = 0; // now it's a level
-	search(initial_matrix, result, 0, initial_matrix->content_size);
-	// we need min size of board DONE, initial matrix DONE
-	// invoke search with level 0
-	// rewrite if(solution) customed matrix to char* matrix
-	// print char* solution matrix
-	// changing matrix size +1 while solution not found
+	while ((search(initial_matrix, result, 0, initial_matrix->content_size)) == 0)
+	{
+		size++;
+		initial_matrix = create_xnode_list(size, 65);
+		create_headers_list(initial_matrix, size);
+		add_all_tetromino_positions(&input_data, &initial_matrix);
+	}
+	print_result(&initial_matrix);
+	return (1);
 }

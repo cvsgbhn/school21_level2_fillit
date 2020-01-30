@@ -6,7 +6,7 @@
 /*   By: vdanilo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 16:18:08 by vdanilo           #+#    #+#             */
-/*   Updated: 2019/11/21 21:02:49 by vdanilo          ###   ########.fr       */
+/*   Updated: 2020/01/22 19:04:10 by vdanilo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ typedef struct	s2_list
 {
 	void			*content;
 	size_t			content_size;
-	int 				x_coords[4];
-	int					y_coords[4];
 	struct s2_list	*next;
 	struct s2_list *previous;
 }				d_list;
