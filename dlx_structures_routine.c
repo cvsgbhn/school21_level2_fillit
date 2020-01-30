@@ -79,7 +79,9 @@ void add_all_tetromino_positions(d_list *tetro, x_node *root, int square_size)
  */
 void	ft_xnode_add_toend(x_node** head_ref, x_node *new_node)
 {
-    x_list* last = *head_ref;
+    x_node* last;
+
+    last = head_ref;
 
     new_node->right = NULL;
 
@@ -143,7 +145,7 @@ void    create_headers_list(x_node *root, int size)
 /*
 * Function to create new empty x_node structure
 */
-x_node  *create_x_node(col_obj input_C, int letter_num)
+x_node  *create_x_node(int letter_num)
 {
     x_node  *new_node;
 
@@ -152,7 +154,7 @@ x_node  *create_x_node(col_obj input_C, int letter_num)
     new_node->left = NULL;
     new_node->up = NULL;
     new_node->down = NULL;
-    new_node->C = input_C;
+    new_node->C = NULL;
     new_node->letter = letter_num;
     return (new_node);
 }

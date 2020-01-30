@@ -87,31 +87,95 @@ col_obj find_column(col_obj *root)
 }
 */
 
-// solution
-int   search(x_node *root, x_node *tmp_sol, int level)
+
+/*
+ * adding to solution matrix
+*/
+void add_to_solution(x_node *tmp_sol, x_node *row)
+{
+  x_node *last;
+
+  last = &tmp_sol;
+  row->down = &tmp_sol;
+
+  if (tmp_sol == NULL)
+  {
+    row->down = &row;
+    *tmp_sol = row;
+    return;
+  }
+
+  while (last->down != tmp_sol)
+    last = last->down;
+
+  last->down = row;
+  row->up = last;
+  return;
+}
+
+/*
+ * removing from solution matrix
+*/
+void remove_from_solution(x_node *tmp_sol, x_node *row)
+{
+  x_node *x_travel;
+
+  x_travel = &tmp_sol;
+  while(x_travel != &row)
+    x_travel = x_travel->down;
+  if (tmp_sol == &x_travel)
+  {
+    tmp_sol = NULL;
+    x_travel->down = tmp_sol;
+    x_travel->up = NULL;
+    x_travel->down = NULL;
+    return;
+  }
+  x_travel->up->down = x_travel->dowm;
+  x_travel->down = x_travel->up;
+  x_travel->up = NULL;
+  x_travel->down = NULL;
+}
+
+/*
+ * solution
+ * x_name originally should be sent as 0
+*/
+int   search(x_node *root, x_node *tmp_sol, int level, int x_name)
 {
     x_node  *x_right;
     x_node  *x_left;
     x_node  *x_travel;
     col_obj *column;
-    int     x_name;
 
-    x_name = x_travel->letter;
-    if (x_right->right == &root)
-        return 1;
+    if (&tmp_sol->up->letter == root->left->letter)
+        return (1);
+    x_right = root->right;
     column = x_right->C;
     x_travel = column->list_header;
     cover(&column);
     while(x_travel->down != column->list_header)
     {
-        add_to_solution(&tmp_sol, &x_travel);
-        x_right = x_travel->right;
-        while(x_right->right != x_travel)
+        if (x_name != x_travel->letter)
         {
-            cover(x_right->C);
-            x_right = x_right->right;
+          add_to_solution(&tmp_sol, &x_travel);
+          x_right = x_travel->right;
+          while(x_right->right != x_travel)
+          {
+              cover(x_right->C);
+              x_right = x_right->right;
+          }
+          search(&root, &tmp_sol, level++, x_travel->letter);
+          remove_from_solution(&tmp_sol, &x_travel);
+          column = x_travel->C;
+          x_left = x_travel->left;
+          while(x_left->left != x_travel)
+          {
+            uncover(&x_left);
+            x_left = x_left->left;
+          }
         }
-        x_travel = x_travel->down;
-
+          x_travel = x_travel->down;
     }
+    return (0);
 }
