@@ -51,14 +51,22 @@ int     main(int argc, char **argv)
 /*
  * transformation from Knuth's matrix to char[][]
  */
-void	transformate(x_node *result, char **matrix)
+void	transformate(x_node *result, char **matrix[size][size])
 {
+    // 0. fill matrix with '.'
 	// 1. take node's coords and letter
 	// 2. put chars in matrix according 1
 	// 3. repeat while result
-	int 	x_x[4];
-	int		x_y[4];
+	int     num;
+	int     pair[2];
 
+	num = -1;
+	while (num++ < 4)
+    {
+	    pair[0] = result->C->x_coords[num];
+	    pair[1] = result->C->y_coords[num];
+	    matrix[pair[0]][pair[1]] = (result->letter) + '0';
+    }
 }
 
 /*
