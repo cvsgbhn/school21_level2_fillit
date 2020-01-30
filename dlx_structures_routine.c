@@ -60,7 +60,7 @@ void    add_to_board(int name, int x[4], int y[4], x_node *root)
 * action: rewrite coordinates while possible add x_nodes on board
 * output: none
 */
-void add_all_tetromino_positions(d_list *tetro, x_node *root, int square_size)
+void add_all_tetromino_positions(d_list *tetro, x_node *root)
 {
   d_list *tnext;
 

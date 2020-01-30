@@ -1,6 +1,22 @@
 #include "dlx_algorithm.h"
 
 /*
+ *
+*/
+int  dl_length(d_list *any_list)
+{
+  int counter;
+
+  counter = 1;
+  while(any_list->next != NULL)
+  {
+    any_list = any_list->next;
+    counter++;
+  }
+  return counter;
+}
+
+/*
 * find int square root
 */
 int sqrt_root(int number)
