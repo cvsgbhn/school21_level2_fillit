@@ -1,26 +1,53 @@
-NAME = fillit
+NAME := fillit
 
-SRC = fillit.c main.c
+# directories
+SRC_DIR = ./src
+INC_DIR	:= ./includes
+OBJ_DIR	:= ./obj
+LIB_DIR	:= ./libft
 
-HEADER = fillit.h libft.h
+# src / obj files
+SRC		:= basic_calculations.c \
+		   dlx_algorithm.c \
+		   dlx_structures_routine.c \
+		   fillit.c \
+		   preparing_routine.c
+OBJ		:= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
-LIBS = libft.a -lsal
+# libraries
+L_FT	:= $(LIB_DIR)/libft.a
 
-OBJ = $(SRC:.c=.o)
+include $(L_FT)/Makefile
 
-all: $(NAME)
-
-$(NAME):
-	clang -Wall -Wextra -Werror -I libft/ -o fillit.o -c fillit.c
-	clang -Wall -Wextra -Werror -I libft/ -o main.o -c main.c
-	clang -o test_fillit main.o fillit.o -I libft/includes -L libft/ -lft
-
-clean:
-	/bin/rm -rf $(OBJECTS)
-
-fclean: clean
-	/bin/rm -rf $(NAME)
-
-re: fclean all
+# compiler and flags
+CC		:= gcc
+CFLAGS	:= -Wall -Wextra -Werror -pedantic -std=c99
+OFLAGS	:= -pipe -flto
+CFLAGS	+= $(OFLAGS)
 
 .PHONY: fclean clean all re
+
+	all:
+		mkdir -p $(OBJ_DIR)
+		@$(MAKE) -C $(L_FT) --no-print-directory
+		@$(MAKE) $(NAME) --no-print-directory
+
+	$(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
+		$(CC) $(CFLAGS) $(LIB_INC) -I $(INC_DIR) -o $@ -c $<
+
+	$(NAME): $(OBJ)
+		$(CC) $(OFLAGS) $(OBJ) $(LIB_LNK) -o $(NAME)
+
+	clean:
+		rm -rf $(OBJ_DIR)
+
+	fclean: clean
+		rm -rf $(NAME)
+
+	re:
+		@$(MAKE) fclean --no-print-directory
+		@$(MAKE) all --no-print-directory
+
+	relibs:
+		@$(MAKE) -C $(L_FT) re --no-print-directory
+		@$(MAKE) re --no-print-directory

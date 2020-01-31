@@ -22,10 +22,6 @@ int	check_one_tetrostring(char *string);
 int	get_one_tetromino(d_list **new_element, int fd, size_t letter);
 
 /*
- * ending_routine.c
-*/
-
-/*
  * basic_calculations.c
 */
 int sqrt_root(int number);
@@ -34,5 +30,8 @@ int find_field_size(int tetro_num);
 /*
  * fillit.c
 */
+void	transformate(x_node *result, char **matrix[size][size]);
+void	print_result(x_node *result, int size);
+int main(int argc, char **argv);
 
 #endif
