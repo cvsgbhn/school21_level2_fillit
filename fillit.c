@@ -58,17 +58,22 @@ void	transformate(x_node *result, char **matrix[size][size])
 	// 2. put chars in matrix according 1
 	// 3. repeat while result
 	int     num;
-	int     pair[2];
+  x_node  *x_down;
+  x_right *x_right;
 
 	num = -1;
-	while (num++ < 4)
-    {
-	    pair[0] = result->C->x_coords[num];
-	    pair[1] = result->C->y_coords[num];
-	    matrix[pair[0]][pair[1]] = (result->letter) + '0';
-    }
+  x_down = &result;
+  while (x_down->down != &result)
+  {
+    x_right = &x_down;
+	   while (num++ < 4)
+     {
+	     matrix[(x_right->C->x_coord)[x_right->C->y_coord] = (down->letter) + '0';
+       x_right = x_right->right;
+     }
+     x_down = x_down->down;
+   }
 }
-
 /*
  * printing result matrix
  */

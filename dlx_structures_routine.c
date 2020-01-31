@@ -39,15 +39,15 @@ void    add_to_board(int name, int x[4], int y[4], x_node *root)
             {
                 if(num == 0)
                 {
-                  x_start = create_x_node(x_next->C, name);
+                  x_start = create_x_node(name);
                   connect_vertical(x_start, x_start->C);
                 }
                 else
                 {
-                  x_last = create_x_node(x_next->C, name);
+                  x_last = create_x_node(name);
                   connect_vertical(x_last, x_last->C)
                 }
-                ft_xnode_add_toend(&x_start, create_x_node(x_next->C, name));
+                ft_xnode_add_toend(&x_start, create_x_node(name));
                 x_next = x_next->right;
             }
         }
