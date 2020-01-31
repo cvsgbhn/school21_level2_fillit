@@ -1,53 +1,39 @@
-NAME := fillit
+.PHONY: clean fclean re make all
 
-# directories
-SRC_DIR = ./src
-INC_DIR	:= ./includes
-OBJ_DIR	:= ./obj
-LIB_DIR	:= ./libft
+FILENAMES = fillit.c
+FILENAMES +=  basic_calculations.c
+FILENAMES += dlx_algorithm.c dlx_structures_routine.c
+FILENAMES += preparing_routine.c
+NAME = fillit
 
-# src / obj files
-SRC		:= basic_calculations.c \
-		   dlx_algorithm.c \
-		   dlx_structures_routine.c \
-		   fillit.c \
-		   preparing_routine.c
-OBJ		:= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
+SRCS	=$(addprefix srcs/, $(FILENAMES))
+OBJS	=$(addprefix build/, $(FILENAMES:.c=.o))
 
-# libraries
-L_FT	:= $(LIB_DIR)/libft.a
+CC		= gcc
+CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	+= -I includes/
+LFLAGS	= -L ./Libft/ -lft
 
-include $(L_FT)/Makefile
+all: $(NAME)
 
-# compiler and flags
-CC		:= gcc
-CFLAGS	:= -Wall -Wextra -Werror -pedantic -std=c99
-OFLAGS	:= -pipe -flto
-CFLAGS	+= $(OFLAGS)
+$(NAME):$(OBJS) | lib
+	@$(CC) $(CFLAGS) -o $(NAME) $(LFLAGS) $(OBJS)
 
-.PHONY: fclean clean all re
+build/%.o: srcs/%.c | build
+	@$(CC) $(CFLAGS) -o $@ -c $^
 
-	all:
-		mkdir -p $(OBJ_DIR)
-		@$(MAKE) -C $(L_FT) --no-print-directory
-		@$(MAKE) $(NAME) --no-print-directory
+re: fclean all
 
-	$(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
-		$(CC) $(CFLAGS) $(LIB_INC) -I $(INC_DIR) -o $@ -c $<
+lib:
+	@make -C ./Libft
+	@make clean -C ./Libft
 
-	$(NAME): $(OBJ)
-		$(CC) $(OFLAGS) $(OBJ) $(LIB_LNK) -o $(NAME)
+clean:
+	@rm -rf build/
 
-	clean:
-		rm -rf $(OBJ_DIR)
+fclean: clean
+	@make fclean -C ./Libft
+	@rm -f $(NAME)
 
-	fclean: clean
-		rm -rf $(NAME)
-
-	re:
-		@$(MAKE) fclean --no-print-directory
-		@$(MAKE) all --no-print-directory
-
-	relibs:
-		@$(MAKE) -C $(L_FT) re --no-print-directory
-		@$(MAKE) re --no-print-directory
+build:
+	@mkdir build/

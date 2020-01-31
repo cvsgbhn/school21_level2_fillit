@@ -29,6 +29,8 @@ typedef struct	s2_list
 	size_t			content_size;
 	struct s2_list	*next;
 	struct s2_list *previous;
+	int             x_coords[4];
+	int             y_coords[4];
 }				d_list;
 
 void	*ft_memset(void *str, int c, size_t n);

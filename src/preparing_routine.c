@@ -1,5 +1,7 @@
 #include "dlx_algorithm.h"
-
+# include "libft/libft.h"
+# include "libft/get_next_line.h"
+# include "fillit.h"
 /*
 * almost the same like move tetromino further - rollback.
 * but only for x axys.

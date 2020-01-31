@@ -1,5 +1,7 @@
 #include "dlx_algorithm.h"
-
+# include "libft/libft.h"
+# include "libft/get_next_line.h"
+# include "fillit.h"
 /*
  * function to connect x_nodes vertically, while adding to a board
  */

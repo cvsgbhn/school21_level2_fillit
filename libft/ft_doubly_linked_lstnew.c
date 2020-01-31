@@ -16,8 +16,10 @@ d_list	*ft_doubly_linked_lstnew(void const *content, size_t content_size)
 {
 	d_list	*newlist;
 	size_t	copy_size;
+	int     counter;
 
 	copy_size = content_size;
+	counter = -1;
 	newlist = (d_list*)malloc(sizeof(struct s2_list));
 	if (!newlist)
 	{
@@ -36,7 +38,10 @@ d_list	*ft_doubly_linked_lstnew(void const *content, size_t content_size)
 	}
 	newlist->next = NULL;
 	newlist->previous = NULL;
-	newlist->x_coords = [0, 0, 0, 0];
-	newlist->y_coords = [0, 0, 0, 0];
+	while(counter++ < 4)
+    {
+	    newlist->x_coords[counter] = 0;
+	    newlist->y_coords[counter] = 0;
+    }
 	return (newlist);
 }
