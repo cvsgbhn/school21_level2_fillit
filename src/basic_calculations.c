@@ -1,11 +1,11 @@
 #include "dlx_algorithm.h"
-# include "libft/libft.h"
-# include "libft/get_next_line.h"
+# include "../libft/libft.h"
+# include "../libft/get_next_line.h"
 # include "fillit.h"
 /*
  *
 */
-int  dl_length(d_list *any_list)
+/*int  dl_length(d_list *any_list)
 {
   int counter;
 
@@ -17,7 +17,7 @@ int  dl_length(d_list *any_list)
   }
   return counter;
 }
-
+*/
 /*
 * find int square root
 */
@@ -45,6 +45,6 @@ int find_field_size(int tetro_num)
 {
     int     size;
 
-    size = sqrt_root(num * 4);
+    size = sqrt_root(tetro_num * 4);
     return size;
 }

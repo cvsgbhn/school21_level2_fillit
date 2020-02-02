@@ -1,17 +1,19 @@
 #include "dlx_algorithm.h"
-# include "libft/libft.h"
-# include "libft/get_next_line.h"
+# include "../libft/libft.h"
+# include "../libft/get_next_line.h"
 # include "fillit.h"
 /*
 * Cover action according to Knuth's paper 'Dancing links'
 */
-void    cover(col_obj *column)
+void    cover(x_node *list_header)
 {
     x_node  *x_obj;
     x_node  *x_side;
     x_node  *x_row;
+    col_obj *column;
 
-    x_obj = column->list_header;
+    column = list_header->C;
+    x_obj = list_header;
     x_side = x_obj->left;
     x_side->right = x_obj->right;
     x_side = x_obj->right;
@@ -40,6 +42,7 @@ void    uncover(x_node *x_obj)
 {
     x_node  *x_col;
     x_node  *x_row;
+    x_node  *x_line;
     col_obj *column;
 
     x_col = x_obj->up;
@@ -56,8 +59,8 @@ void    uncover(x_node *x_obj)
         }
         x_line = x_line->up;
     }
-    column->list_header.left->right = column->list_header;
-    column->list_header.right->left = column->list_header;
+    //column->list_header.left->right = column->list_header;
+    //column->list_header.right->left = column->list_header;
 }
 
 
@@ -97,13 +100,13 @@ void add_to_solution(x_node *tmp_sol, x_node *row)
 {
   x_node *last;
 
-  last = &tmp_sol;
-  row->down = &tmp_sol;
+  last = tmp_sol;
+  row->down = tmp_sol;
 
   if (tmp_sol == NULL)
   {
-    row->down = &row;
-    *tmp_sol = row;
+    row->down = row;
+    tmp_sol = row;
     return;
   }
 
@@ -122,10 +125,10 @@ void remove_from_solution(x_node *tmp_sol, x_node *row)
 {
   x_node *x_travel;
 
-  x_travel = &tmp_sol;
-  while(x_travel != &row)
+  x_travel = tmp_sol;
+  while(x_travel != row)
     x_travel = x_travel->down;
-  if (tmp_sol == &x_travel)
+  if (tmp_sol == x_travel)
   {
     tmp_sol = NULL;
     x_travel->down = tmp_sol;
@@ -133,7 +136,7 @@ void remove_from_solution(x_node *tmp_sol, x_node *row)
     x_travel->down = NULL;
     return;
   }
-  x_travel->up->down = x_travel->dowm;
+  x_travel->up->down = x_travel->down;
   x_travel->down = x_travel->up;
   x_travel->up = NULL;
   x_travel->down = NULL;
@@ -148,32 +151,35 @@ int   search(x_node *root, x_node *tmp_sol, int level, int x_name)
     x_node  *x_right;
     x_node  *x_left;
     x_node  *x_travel;
-    col_obj *column;
+    x_node  *x_fixed;
+    //col_obj *column;
 
-    if (&tmp_sol->up->letter == root->left->letter)
+    if (tmp_sol->up->letter == root->left->letter)
         return (1);
     x_right = root->right;
-    column = x_right->C;
-    x_travel = column->list_header;
-    cover(&column);
-    while(x_travel->down != column->list_header)
+    //column = x_right->C;
+    x_travel = x_right;
+    x_fixed = x_right;
+    cover(x_right);
+    while(x_travel->down != x_fixed)
     {
         if (x_name != x_travel->letter)
         {
-          add_to_solution(&tmp_sol, &x_travel);
+          add_to_solution(tmp_sol, x_travel);
           x_right = x_travel->right;
           while(x_right->right != x_travel)
           {
-              cover(x_right->C);
+              cover(x_fixed);
               x_right = x_right->right;
           }
-          search(&root, &tmp_sol, level++, x_travel->letter);
-          remove_from_solution(&tmp_sol, &x_travel);
-          column = x_travel->C;
+          search(root, tmp_sol, level++, x_travel->letter);
+          remove_from_solution(tmp_sol, x_travel);
+          x_fixed = x_travel;
+          //column = x_travel->C;
           x_left = x_travel->left;
           while(x_left->left != x_travel)
           {
-            uncover(&x_left);
+            uncover(x_left);
             x_left = x_left->left;
           }
         }

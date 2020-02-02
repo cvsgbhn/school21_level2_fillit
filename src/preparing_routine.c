@@ -1,6 +1,6 @@
 #include "dlx_algorithm.h"
-# include "libft/libft.h"
-# include "libft/get_next_line.h"
+# include "../libft/libft.h"
+# include "../libft/get_next_line.h"
 # include "fillit.h"
 /*
 * almost the same like move tetromino further - rollback.
@@ -8,13 +8,13 @@
 * may be there will be one for y rollback, i have no fucking idea
 */
 // ACHTUNG! WORK IS CONTINUING
-void    *coords_rollback(int last_coord, d_list tetromino)
+void    coords_rollback(int last, int xory[4])
 {
     int     counter;
 
     counter = -1;
-    while (counter++ <= last_coord)
-        tetromino.coords[counter]--;
+    while (counter++ < last)
+        xory[counter]--;
 }
 
 /*
@@ -45,9 +45,8 @@ int    move_tetromino_once(int square_size, int x_coords[4], int y_coords[4])
       }
       x_coords[ox]++;
     }
+    return (1);
   }
-  return(1);
-}
 
 /*
 * write original coordinates of every point of tetromino
@@ -57,12 +56,13 @@ int     *find_old_coordinates(char *tetromino)
 {
     int     rows_num;
     int     counter;
-    int     coordinates[8];
+    int     *coordinates;
     int     coord;
 
     rows_num = 0;
     counter = 0;
     coord = 0;
+    coordinates = (int *)malloc(8 * sizeof(int));
     while (rows_num != 3)
     {
         while (tetromino[counter + 4*rows_num] && counter != 4)
@@ -88,11 +88,15 @@ int   *parse_to_xy(int coords[8], char xory)
 {
   int   iterator;
   int   subcoor;
-  int   oxoy[4];
+  int   *oxoy;
 
-  iterator = 0;
+  iterator = -1;
   subcoor = 0;
-  oxoy = [0,0,0,0];
+  oxoy = (int *)malloc(4 * sizeof(int));
+  while (iterator++ < 4)
+      oxoy[iterator] = 0;
+  iterator = 0;
+  //oxoy = [0,0,0,0];
   if (xory == 'y')
     iterator++;
   while (iterator < 8)
@@ -140,14 +144,16 @@ int   *find_new_coordinates(int *xory_coords)
     xory_coords[counter] = xory_coords[counter] - min;
     counter++;
   }
+  printf("%s\n", "preparing_routine.c/find_new_coordinates :147");
   return (xory_coords);
 }
 
 /*
 * function to check symbol validity
 */
+/*
 // TODO: wtf is this???? I need normal one!!!!!!!
-int count_not_symbol(char symb, char *str)
+int count_not_symbol(char *str)
 {
 	int iterator = 0;
 	int counter = 0;
@@ -159,7 +165,7 @@ int count_not_symbol(char symb, char *str)
 	}
 	return (counter);
 }
-
+*/
 
 /*
 * check validity of the one string of tetromino
@@ -169,7 +175,7 @@ int	check_one_tetrostring(char *string)
 	int iterator;
 
 	iterator = 0;
-	if ft_strlen(string) != 5
+	if (ft_strlen(string) != 5)
 		return (0);
 	while (string[iterator] != '\n')
 	{
@@ -206,8 +212,13 @@ int	get_one_tetromino(d_list **new_element, int fd, size_t letter)
 		return (0);
     (*new_element)->content = ft_strdup(main_line);
     (*new_element)->content_size = letter;
-    (*new_element)->x_coords[0,0,0,0];
-    (*new_element)->y_coords[0,0,0,0];
+    counter = -1;
+    while (counter++ < 4)
+    {
+        (*new_element)->x_coords[counter] = 0;
+        (*new_element)->y_coords[counter] = 0;
+    }
+    printf("%s\n", "preparing_routine.c :220");
 	return (1);
 }
 
@@ -232,8 +243,27 @@ d_list	*get_tetrominos(int fd)
 	  letter_num ++;
   }
 	// test printf, never mind
-	printf("%s\n", ":-) got one tetromino");
+	printf("%s\n", "preparing_routine.c :245");
 
 
 	return (head);
+}
+
+int     dl_length(d_list *input_lst)
+{
+    int     length;
+    d_list  *next_lst;
+
+    printf("%s\n", "ENTERED preparing_routine.c/dl_length :257");
+    length = 1;
+    next_lst = input_lst;
+    while(next_lst->next != NULL)
+    {
+        length++;
+        next_lst = next_lst->next;
+        printf("%s\n", "preparing_routine.c/dl_length while loop");
+        printf("%d\n", length);
+    }
+    printf("%s\n", "preparing_routine.c/dl_length length :264");
+    return length;
 }
