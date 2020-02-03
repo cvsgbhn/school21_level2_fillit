@@ -9,6 +9,7 @@
 x_node  *create_x_node(int letter_num)
 {
     x_node  *new_node;
+    printf("ENTERED dlx_structures_routine.c/create_x_node :12");
 
     new_node = (x_node *)malloc(sizeof(x_node));
     new_node->right = NULL;
@@ -26,6 +27,7 @@ x_node  *create_x_node(int letter_num)
 col_obj *create_col_obj(x_node *obj, int x, int y)
 {
     col_obj *new_co;
+    printf("ENTERED dlx_structures_routine.c/create_col_obj :29");
 
     new_co = (col_obj *)malloc(sizeof(col_obj));
     new_co->size = 0;
@@ -41,6 +43,7 @@ col_obj *create_col_obj(x_node *obj, int x, int y)
 void    connect_vertical(x_node *x_new, x_node *column)
 {
   x_node  *x_last;
+  printf("ENTERED dlx_structures_routine.c/connect_vertical :45");
 
   x_last = column->down;
   while(x_last->down != column)
@@ -64,6 +67,7 @@ void    add_to_board(int name, int x[4], int y[4], x_node *root)
     x_node  *x_start;
     x_node  *x_last;
     //x_node  *x_fixed;
+    printf("ENTERED dlx_structures_routine.c/add_to_board :69");
 
     num = -1;
     x_next = root;
@@ -101,6 +105,7 @@ void    add_to_board(int name, int x[4], int y[4], x_node *root)
 void add_all_tetromino_positions(d_list *tetro, x_node *root, int square_size)
 {
   d_list *tnext;
+  printf("ENTERED dlx_structures_routine.c/create_col_obj :29");
 
   tnext = tetro;
   while(tnext->next != tetro)
@@ -118,6 +123,7 @@ void add_all_tetromino_positions(d_list *tetro, x_node *root, int square_size)
 void	ft_xnode_add_toend(x_node** head_ref, x_node *new_node)
 {
     x_node* last;
+    printf("ENTERED dlx_structures_routine.c/ft_xnode_add_toend :126");
 
     last = *head_ref;
 
@@ -144,6 +150,7 @@ x_node  *create_xnode_list(int size, int letter)
 {
   int   square;
   x_node    *root_xnode;
+  printf("ENTERED dlx_structures_routine.c/create_xnode_list :153");
 
   square = size * size + 1;
   root_xnode = create_x_node(letter);
@@ -164,6 +171,8 @@ void    create_headers_list(x_node *root, int size)
   int     x;
   int     y;
   x_node  *next_xnode;
+  printf("ENTERED dlx_structures_routine.c/create_headers_list :174");
+
 
   next_xnode = root->right;
   y = 0;
@@ -180,4 +189,3 @@ void    create_headers_list(x_node *root, int size)
     x++;
   }
 }
-

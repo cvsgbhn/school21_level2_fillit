@@ -25,6 +25,7 @@ int sqrt_root(int number)
 {
   int   root;
   int   result;
+  printf("ENTERED basic_calculations.c/sqrt_root :28");
 
   root = 1;
   result = 1;
@@ -44,6 +45,7 @@ int sqrt_root(int number)
 int find_field_size(int tetro_num)
 {
     int     size;
+    printf("ENTERED basic_calculations.c/find_field_size :48");
 
     size = sqrt_root(tetro_num * 4);
     return size;

@@ -11,6 +11,7 @@ void    cover(x_node *list_header)
     x_node  *x_side;
     x_node  *x_row;
     col_obj *column;
+    printf("ENTERED dlx_algorithm.c/cover :14");
 
     column = list_header->C;
     x_obj = list_header;
@@ -44,6 +45,7 @@ void    uncover(x_node *x_obj)
     x_node  *x_row;
     x_node  *x_line;
     col_obj *column;
+    printf("ENTERED dlx_algorithm.c/uncover :48");
 
     x_col = x_obj->up;
     x_row = x_obj->left;
@@ -99,6 +101,7 @@ col_obj find_column(col_obj *root)
 void add_to_solution(x_node *tmp_sol, x_node *row)
 {
   x_node *last;
+  printf("ENTERED dlx_algorithm.c/add_to_solution :104");
 
   last = tmp_sol;
   row->down = tmp_sol;
@@ -124,6 +127,7 @@ void add_to_solution(x_node *tmp_sol, x_node *row)
 void remove_from_solution(x_node *tmp_sol, x_node *row)
 {
   x_node *x_travel;
+  printf("ENTERED dlx_algorithm.c/remove_from_solution :130");
 
   x_travel = tmp_sol;
   while(x_travel != row)
@@ -153,6 +157,7 @@ int   search(x_node *root, x_node *tmp_sol, int level, int x_name)
     x_node  *x_travel;
     x_node  *x_fixed;
     //col_obj *column;
+    printf("ENTERED dlx_algorithm.c/searchn :160");
 
     if (tmp_sol->up->letter == root->left->letter)
         return (1);
