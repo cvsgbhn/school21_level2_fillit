@@ -11,7 +11,7 @@
 void    coords_rollback(int last, int xory[4])
 {
     int     counter;
-    printf("ENTERED preparing_routine.c/coords_rollback :14");
+    printf("%s\n", "ENTERED preparing_routine.c/coords_rollback :14");
 
 
     counter = -1;
@@ -30,7 +30,7 @@ int    move_tetromino_once(int square_size, int x_coords[4], int y_coords[4])
 {
     int     ox;
     int     oy;
-    printf("ENTERED preparing_routine.c/move_tetromino_once :33");
+    printf("%s\n", "ENTERED preparing_routine.c/move_tetromino_once :33");
 
     ox = -1;
     oy = -1;
@@ -61,7 +61,7 @@ int     *find_old_coordinates(char *tetromino)
     int     counter;
     int     *coordinates;
     int     coord;
-    printf("ENTERED preparing_routine.c/find_old_coordinates :64");
+    printf("%s\n", "ENTERED preparing_routine.c/find_old_coordinates :64");
 
     rows_num = 0;
     counter = 0;
@@ -93,7 +93,7 @@ int   *parse_to_xy(int coords[8], char xory)
   int   iterator;
   int   subcoor;
   int   *oxoy;
-  printf("ENTERED preparing_routine.c/parse_to_xy :96");
+  printf("%s\n", "ENTERED preparing_routine.c/parse_to_xy :96");
 
   iterator = -1;
   subcoor = 0;
@@ -120,7 +120,7 @@ int     min_in_array(int *numbers)
 {
     int     min;
     int     counter;
-    printf("ENTERED preparing_routine.c/min_in_array :123");
+    printf("%s\n", "ENTERED preparing_routine.c/min_in_array :123");
 
     counter = 0;
     min = numbers[counter];
@@ -142,7 +142,7 @@ int   *find_new_coordinates(int *xory_coords)
 {
   int   counter;
   int   min;
-  printf("ENTERED preparing_routine.c/find_new_coordinates :145");
+  printf("%s\n", "ENTERED preparing_routine.c/find_new_coordinates :145");
 
   counter = 0;
   min = min_in_array(xory_coords);
@@ -180,7 +180,7 @@ int count_not_symbol(char *str)
 int	check_one_tetrostring(char *string)
 {
 	int iterator;
-  printf("ENTERED preparing_routine.c/\check_one_tetrostring :14");
+  printf("%s\n", "ENTERED preparing_routine.c/check_one_tetrostring :14");
 
 	iterator = 0;
 	if (ft_strlen(string) != 5)
@@ -202,7 +202,7 @@ int	get_one_tetromino(d_list **new_element, int fd, size_t letter)
 	char	*tmp_line;
 	char 	*main_line;
 	int 	counter;
-  printf("ENTERED preparing_routine.c/get_one_tetromino :205");
+  printf("%s\n", "ENTERED preparing_routine.c/get_one_tetromino :205");
 
 	main_line = "";
 	counter = 0;
@@ -240,7 +240,7 @@ d_list	*get_tetrominos(int fd)
 	d_list  *next_list;
 	d_list	*head;
 	size_t  letter_num;
-  printf("ENTERED preparing_routine.c/get_tetrominos :243");
+  printf("%s\n", "ENTERED preparing_routine.c/get_tetrominos :243");
 
 	letter_num = 65;
 	tmp_list = ft_doubly_linked_lstnew("\0", 0);
@@ -251,6 +251,7 @@ d_list	*get_tetrominos(int fd)
     ft_doubly_linked_lstadd_toend(&tmp_list, next_list);
 	  tmp_list = tmp_list->next;
 	  letter_num ++;
+	  printf("%ld\n", letter_num);
   }
 	// test printf, never mind
 	printf("%s\n", "preparing_routine.c :245");
@@ -264,8 +265,8 @@ int     dl_length(d_list *input_lst)
     int     length;
     d_list  *next_lst;
 
-    printf("%s\n", "ENTERED preparing_routine.c/dl_length :257");
-    length = 1;
+    printf("%s\n", "ENTERED preparing_routine.c/dl_length :268");
+    length = 0;
     next_lst = input_lst;
     while(next_lst->next != NULL)
     {

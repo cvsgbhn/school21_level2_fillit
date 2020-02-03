@@ -9,7 +9,7 @@
 x_node  *create_x_node(int letter_num)
 {
     x_node  *new_node;
-    printf("ENTERED dlx_structures_routine.c/create_x_node :12");
+    printf("%s\n","ENTERED dlx_structures_routine.c/create_x_node :12");
 
     new_node = (x_node *)malloc(sizeof(x_node));
     new_node->right = NULL;
@@ -18,6 +18,7 @@ x_node  *create_x_node(int letter_num)
     new_node->down = NULL;
     new_node->C = NULL;
     new_node->letter = letter_num;
+    printf("%d\n", letter_num);
     return (new_node);
 }
 
@@ -27,7 +28,7 @@ x_node  *create_x_node(int letter_num)
 col_obj *create_col_obj(x_node *obj, int x, int y)
 {
     col_obj *new_co;
-    printf("ENTERED dlx_structures_routine.c/create_col_obj :29");
+    printf("%s\n","ENTERED dlx_structures_routine.c/create_col_obj :29");
 
     new_co = (col_obj *)malloc(sizeof(col_obj));
     new_co->size = 0;
@@ -43,7 +44,7 @@ col_obj *create_col_obj(x_node *obj, int x, int y)
 void    connect_vertical(x_node *x_new, x_node *column)
 {
   x_node  *x_last;
-  printf("ENTERED dlx_structures_routine.c/connect_vertical :45");
+  printf("%s\n","ENTERED dlx_structures_routine.c/connect_vertical :45");
 
   x_last = column->down;
   while(x_last->down != column)
@@ -67,16 +68,19 @@ void    add_to_board(int name, int x[4], int y[4], x_node *root)
     x_node  *x_start;
     x_node  *x_last;
     //x_node  *x_fixed;
-    printf("ENTERED dlx_structures_routine.c/add_to_board :69");
+    printf("%s\n","ENTERED dlx_structures_routine.c/add_to_board :69");
 
     num = -1;
     x_next = root;
     //x_fixed = root->right;
     while (num++ < 4)
     {
+        // TODO: when x_next->letter == 24, loop turns infinite
+        printf("%s %d\n", "num", num);
         x_next = x_next->right;
         while (x_next != root->right)
         {
+            printf("%s %d\n", "letter ", x_next->letter);
             if (x_next->C->x == x[num] && x_next->C->y == y[num])
             {
                 if(num == 0)
@@ -105,7 +109,7 @@ void    add_to_board(int name, int x[4], int y[4], x_node *root)
 void add_all_tetromino_positions(d_list *tetro, x_node *root, int square_size)
 {
   d_list *tnext;
-  printf("ENTERED dlx_structures_routine.c/create_col_obj :29");
+  printf("%s\n","ENTERED dlx_structures_routine.c/create_col_obj :29");
 
   tnext = tetro;
   while(tnext->next != tetro)
@@ -123,7 +127,7 @@ void add_all_tetromino_positions(d_list *tetro, x_node *root, int square_size)
 void	ft_xnode_add_toend(x_node** head_ref, x_node *new_node)
 {
     x_node* last;
-    printf("ENTERED dlx_structures_routine.c/ft_xnode_add_toend :126");
+    printf("%s\n","ENTERED dlx_structures_routine.c/ft_xnode_add_toend :126");
 
     last = *head_ref;
 
@@ -150,15 +154,15 @@ x_node  *create_xnode_list(int size, int letter)
 {
   int   square;
   x_node    *root_xnode;
-  printf("ENTERED dlx_structures_routine.c/create_xnode_list :153");
+  //x_node    *other_xnode;
+  printf("%s\n","ENTERED dlx_structures_routine.c/create_xnode_list :153");
 
+  printf("%s\n %d\n", "IT IS SIZE ", size);
   square = size * size + 1;
   root_xnode = create_x_node(letter);
   while(square-- >= 0)
   {
-    if (square == 0)
-        ft_xnode_add_toend(&root_xnode, create_x_node(letter));
-    ft_xnode_add_toend(&root_xnode, create_x_node(letter));
+      ft_xnode_add_toend(&root_xnode, create_x_node(square));
   }
   return(root_xnode);
 }
@@ -171,20 +175,23 @@ void    create_headers_list(x_node *root, int size)
   int     x;
   int     y;
   x_node  *next_xnode;
-  printf("ENTERED dlx_structures_routine.c/create_headers_list :174");
+  int     counter;
+  printf("%d\n %s\n", size, "ENTERED dlx_structures_routine.c/create_headers_list :174");
 
 
   next_xnode = root->right;
   y = 0;
   x = 0;
-  while (next_xnode->right != root)
+  counter = 0;
+  while (counter++ < (size * size))
   {
-    if (x > size)
+    if (x >= size)
       {
         x = 0;
         y++;
       }
     create_col_obj(next_xnode, x, y);
+    printf("%d %d %d\n", x, y, counter);
     next_xnode = next_xnode->right;
     x++;
   }

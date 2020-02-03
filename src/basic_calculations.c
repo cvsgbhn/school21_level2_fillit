@@ -36,7 +36,7 @@ int sqrt_root(int number)
     root++;
     result = root * root;
   }
-  return root - 1;
+  return root;
 }
 
 /*
