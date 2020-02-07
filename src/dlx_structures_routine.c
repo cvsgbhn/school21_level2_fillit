@@ -124,26 +124,28 @@ void add_all_tetromino_positions(d_list *tetro, x_node *root, int square_size)
 /*
  * add x_node to list of x_nodes, to the rightmost position
  */
-void	ft_xnode_add_toend(x_node** head_ref, x_node *new_node)
+void	ft_xnode_add_toend(x_node* head_ref, x_node *new_node)
 {
     x_node* last;
     printf("%s\n","ENTERED dlx_structures_routine.c/ft_xnode_add_toend :126");
 
-    last = *head_ref;
+    last = head_ref;
 
     new_node->right = NULL;
 
     if (*head_ref == NULL) {
-        new_node->left = NULL;
-        *head_ref = new_node;
+        new_node->left = new_node;
+        new_node->right = new_node;
+        head_ref = new_node;
         return;
     }
 
-    while (last->right != NULL)
+    while (last->right != head_ref)
         last = last->right;
 
     last->right = new_node;
     new_node->left = last;
+    new_node->right = head_ref;
     return;
 }
 
