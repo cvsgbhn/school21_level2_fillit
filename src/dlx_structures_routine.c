@@ -47,13 +47,19 @@ void    connect_vertical(x_node *x_new, x_node *column)
   printf("%s\n","ENTERED dlx_structures_routine.c/connect_vertical :45");
 
   int counter = 0;
-  x_last = column->down;
+  if (column->down == NULL)
+      column->down = x_new;
+   x_last = column->down;
   printf("%s\n", ":50");
-  while(x_last->down != column)
+  if (x_last->down != NULL)
   {
-      printf("%d %s\n", counter, "times no segs :54");
-      x_last = x_last->down;
-      counter++;
+      printf("%s\n", "x_last not null");
+      while(x_last->down != column)
+      {
+          printf("%d %s\n", counter, "times no segs :54");
+          x_last = x_last->down;
+          counter++;
+      }
   }
   printf("%s\n", ":53");
   x_last->down = x_new;
@@ -85,7 +91,7 @@ void    add_to_board(int name, int x[4], int y[4], x_node *root)
         // TODO: when x_next->letter == 24, loop turns infinite
         printf("%s %d\n", "num", num);
         x_next = x_next->right;
-        while (x_next != root)
+        if (x_next != root)
         {
             printf("%s %d\n", "letter ", x_next->letter);
             if (x_next->C->x == x[num] && x_next->C->y == y[num])
@@ -101,9 +107,10 @@ void    add_to_board(int name, int x[4], int y[4], x_node *root)
                   printf("%s\n", "create_node_ :94");
                   x_last = create_x_node(name);
                   connect_vertical(x_last, x_next);
+                  ft_xnode_add_toend(&x_start, x_last);
                 }
-                ft_xnode_add_toend(x_start, x_last);
-                x_next = x_next->right;
+                //ft_xnode_add_toend(&x_start, x_last);
+                //x_next = x_next->right;
             }
         }
         num++;
@@ -134,28 +141,29 @@ void add_all_tetromino_positions(d_list *tetro, x_node *root, int square_size)
 /*
  * add x_node to list of x_nodes, to the rightmost position
  */
-void	ft_xnode_add_toend(x_node* head_ref, x_node *new_node)
+void	ft_xnode_add_toend(x_node** head_ref, x_node *new_node)
 {
     x_node* last;
-    printf("%s\n","ENTERED dlx_structures_routine.c/ft_xnode_add_toend :126");
-
-    last = head_ref;
+    printf("%s\n","ENTERED dlx_structures_routine.c/ft_xnode_add_toend :140");
 
     new_node->right = NULL;
+    printf("%s\n", "dlx_structures_ruotine.c/ft_xnode_add_toend :145");
 
     if (head_ref == NULL) {
+        printf("%s\n", "dlx_structures_ruotine.c/ft_xnode_add_toend :148");
         new_node->left = new_node;
         new_node->right = new_node;
-        head_ref = new_node;
+        head_ref = &new_node;
         return;
     }
-
-    while (last->right != head_ref)
+    last = *head_ref;
+    printf("%s\n", "dlx_structures_ruotine.c/ft_xnode_add_toend :154");
+    while (last->right != *head_ref && last->right != NULL)
         last = last->right;
-
+    printf("%s\n", "dlx_structures_ruotine.c/ft_xnode_add_toend :157");
     last->right = new_node;
     new_node->left = last;
-    new_node->right = head_ref;
+    new_node->right = *head_ref;
     return;
 }
 
@@ -174,7 +182,7 @@ x_node  *create_xnode_list(int size, int letter)
   root_xnode = create_x_node(letter);
   while(square-- >= 0)
   {
-      ft_xnode_add_toend(root_xnode, create_x_node(square));
+      ft_xnode_add_toend(&root_xnode, create_x_node(square));
   }
   return(root_xnode);
 }
