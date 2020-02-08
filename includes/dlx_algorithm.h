@@ -33,7 +33,7 @@ typedef struct          data_object
 void    connect_vertical(x_node *x_new, x_node *column);
 void    add_to_board(int name, int x[4], int y[4], x_node *root);
 void add_all_tetromino_positions(d_list *tetro, x_node *root, int square_size);
-void	ft_xnode_add_toend(x_node** head_ref, x_node *new_node);
+void	ft_xnode_add_toend(x_node* head_ref, x_node *new_node);
 x_node  *create_xnode_list(int size, int letter);
 void    create_headers_list(x_node *root, int size);
 x_node  *create_x_node(int letter_num);
